@@ -29,12 +29,15 @@ public:
 
 int main() {
     vector<int> vect;
-    vect.push_back(3);
-    vect.push_back(4);
-    vect.push_back(1);
-    vect.push_back(2);
     Solution solution;
-    int ans = solution.findMaxSum(vect, 4);
+    int length;
+    int a;
+    cin >> length;
+    while (length--) {
+        cin >> a;
+        vect.push_back(a);
+    }
+    int ans = solution.findMaxSum(vect, length);
     cout << ans << endl;
     return 0;
 }
