@@ -10,19 +10,20 @@ public:
         vector<vector<int> > ans;
         vector<int> cur;
         sort(candidates.begin(), candidates.end());
-        dfs(ans, cur, candidates, target);
+        dfs(ans, cur, 0, candidates, target);
         return ans;
     }
 
-    void dfs(vector<vector<int> >& ans, vector<int>& cur, vector<int>& candidates, int target) {
+    void dfs(vector<vector<int> >& ans, vector<int>& cur, int index, vector<int>& candidates, int target) {
         if (target == 0) {
             ans.push_back(cur);
+			return;
         } else if (target < 0) {
             return;
         } else {
-            for (int candidate : candidates) {
-                cur.push_back(candidate);
-                dfs(ans, cur, candidates, target - candidate);
+            for (int i = index; i < candidates.size();i++) {
+                cur.push_back(candidates[i]);
+                dfs(ans, cur, i, candidates, target - candidate);
                 cur.pop_back();
             }
         }
