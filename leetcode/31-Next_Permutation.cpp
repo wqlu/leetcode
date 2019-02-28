@@ -4,21 +4,28 @@
 
 using namespace std;
 
+ int cmp1(int a, int b) {
+        return b > a;
+    }
+
 class Solution {
-public:
+public:    
     void nextPermutation(vector<int>& nums) {
-        bool flag = true;
-        if (nums.size() <= 1) return;
-        for (int i = 0; i < nums.size() - 1; ++i) {
-            if (nums[i] < nums[i+1]) {
-                flag = false;
+        int n = nums.size(), k, l;
+        for (k = n - 2; k >= 0; k--) {
+            if (nums[k] < nums[k + 1]) {
                 break;
             }
         }
-        if (flag) {
-            
+        if (k < 0) {
+            reverse(nums.begin(), nums.end());
         } else {
-            sort(nums.end(), nums.end());
+            for (l = n - 1; l > k; l--) {
+                if (nums[l] > nums[k])
+                    break;
+            }
+            swap(nums[k], nums[l]);
+            reverse(nums.begin() + k + 1, nums.end());
         }
     }
 };
