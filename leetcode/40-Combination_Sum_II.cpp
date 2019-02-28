@@ -1,40 +1,42 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 using namespace std;
 
 class Solution {
 public:
-    vector<vector<int> > combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int> > ans;
+    vector<vector<int> > combinationSum2(vector<int>& candidates, int target) {
+        set<vector<int> > ans;
         vector<int> cur;
         sort(candidates.begin(), candidates.end());
         dfs(ans, cur, 0, candidates, target);
-        return ans;
+        return vector<vector<int> >(ans.begin(), ans.end());
     }
 
-    void dfs(vector<vector<int> >& ans, vector<int>& cur, int index, vector<int>& candidates, int target) {
+    void dfs(set<vector<int> >& ans, vector<int>& cur, int index, vector<int>& candidates, int target) {
         if (target == 0) {
-            ans.push_back(cur);
-			return;
+            ans.insert(cur);
+            return;
         } else if (target < 0) {
             return;
         } else {
-            for (int i = index; i < candidates.size();i++) {
+            for (int i = index; i < candidates.size(); i++) {
                 cur.push_back(candidates[i]);
-                dfs(ans, cur, i, candidates, target-candidates[i]);
+                dfs(ans, cur, i+1, candidates, target - candidates[i]);
                 cur.pop_back();
             }
         }
     }
+
 };
 
 int main() {
     Solution s;
     vector<int> candidates;
-    candidates = { 2, 3, 6, 7 };
-    vector<vector<int> > ans = s.combinationSum(candidates, 7);
+    candidates = { 2,5,2,1,2 };
+    vector<vector<int> > ans = s.combinationSum2(candidates, 5);
     for (vector<int> v1 : ans) {
         cout << "[ ";
         for (int i : v1) {
