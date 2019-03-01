@@ -35,7 +35,7 @@ public:
 int main() {
     Solution s;
     vector<int> candidates;
-    candidates = { 2,5,2,1,2 };
+    candidates = { 2, 3, 6, 7 };
     vector<vector<int> > ans = s.combinationSum2(candidates, 5);
     for (vector<int> v1 : ans) {
         cout << "[ ";
