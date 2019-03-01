@@ -8,23 +8,23 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        set<vector<int>> ans;
+        vector<vector<int>> ans;
         vector<int> cur;
         vector<int> used(nums.size());
         sort(nums.begin(), nums.end());
         dfs(ans, cur, used, nums);
-        return vector<vector<int>> (ans.begin(), ans.end());
+        return ans;
     }
 
 
-    void dfs(set<vector<int>>& ans, vector<int>& cur, vector<int>& used, vector<int>& nums) {
+    void dfs(vector<vector<int>>& ans, vector<int>& cur, vector<int>& used, vector<int>& nums) {
         if (cur.size() == nums.size()) {
-            ans.insert(cur);
+            ans.push_back(cur);
             return;
         } else {
             for (int i = 0; i < nums.size(); i++) {
                 if (used[i]) continue;
-                // if (i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;
+                if (i > 0 && nums[i] == nums[i-1] && !used[i-1]) continue;
                 used[i] = 1;
                 cur.push_back(nums[i]);
                 dfs(ans, cur, used, nums);
