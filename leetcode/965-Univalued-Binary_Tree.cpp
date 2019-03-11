@@ -14,7 +14,6 @@ public:
     bool isUnivalTree(TreeNode* root) {
         node_value = root->val;
         return preorder(root, node_value);
-
     }
 
     bool preorder(TreeNode*& root, const int& value) {
