@@ -7,6 +7,10 @@
 1. end letter = start letter
 2. 它的[i+1][j-1]这个字串为回文
 
+## 6. ZigZag Conversion
+
+首先根据行数创建几个string保存在vector中，遍历字符串一次对vector中的string进行添加字符的操作，最后合成一个字符串
+
 ## 7. Reverse Interger
 
 注意点：翻转后的数字可能会溢出
