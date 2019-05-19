@@ -87,7 +87,7 @@ int removeElement2(vector<int>& nums, int val) {
 2. 一维下标n分别表示：第n行、第n列、第n个九宫格
 3. 二维下标m表示：在当前行、列、九宫格的数字m
 4. 二维数组的值表示该数字出现的次数，出现1次就代表重复了
-  例如：row[2][5]代表第2行数字5
+    例如：row[2][5]代表第2行数字5
 
 ## 54. Spiral Matrix
 
@@ -98,4 +98,79 @@ int removeElement2(vector<int>& nums, int val) {
 
 问：在二维矩阵查找某一个值是否存在？
 答：由于横竖都是有序的，从右上角开始比对，可以每次排除一行或一列
+
+## 347. Top K Frequent Elements
+
+问：返回一个数组出现次数最多的前k个数
+答：首先使用unorder_map来统计出现的次数，然后使用priority_queue，由于其默认是最大堆，可以对出现次数进行排列。
+
+## 886. Possible Bipartition
+
+问：互相不喜欢的人不能分在一个部分里，抽象出无向图是否可分为两部分？
+答：染色法，对节点进行染色，分蓝色和红色，相邻节点的颜色不同，dfs遍历下来，如果相邻颜色相同，代表冲突，无法分为两个部分。
+
+```c++
+class Solution {
+public:
+    bool possibleBipartition(int N, vector<vector<int>>& dislikes) {
+      g_ = vector<vector<int>>(N);
+      for (const auto& d : dislikes) {
+        g_[d[0] - 1].push_back(d[1] - 1);
+        g_[d[1] - 1].push_back(d[0] - 1);
+      }
+      colors_ = vector<int>(N, 0);  // 0: unknown, 1: red, -1: blue
+      for (int i = 0; i < N; ++i)
+        if (colors_[i] == 0 && !dfs(i, 1)) return false;
+      return true;      
+    }
+private:
+  vector<vector<int>> g_;
+  vector<int> colors_;
+  bool dfs(int cur, int color) {
+    colors_[cur] = color;
+    for (int nxt : g_[cur]) {
+      if (colors_[nxt] == color) return false;      
+      if (colors_[nxt] == 0 && !dfs(nxt, -color)) return false;
+    }
+    return true;
+  }
+};
+```
+相似问题：[785. Is Graph Bipartite?](https://leetcode.com/problems/is-graph-bipartite/)
+
+## 973. K Closest Points to Origin
+
+问：找到几个距离[0，0]最近的K个点
+答：使用最小堆可以解决，也可以vector<pair<float， int>>来排序
+
+```c++
+// 法一
+vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+    typedef pair<double, vector<int>> pi;
+    priority_queue<pi, vector<pi>, greater<pi>> p;
+    for (const auto &point : points) {
+    	double distance = sqrt(pow((double)point[0], 2.0) + pow((double)point[1], 2.0));
+   		p.push(make_pair(distance, point));
+    }
+    vector<vector<int>> ans(K);
+    for (int i = 0; i < K; ++i) {
+    	ans[i] = p.top().second;
+    	p.pop();
+    }
+}
+// 法二
+vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+	vector<vector<int>> res;
+	int i;
+	vector<pair <float, int>> vec1; 
+	for(i=0; i< points.size(); i++)
+		vec1.push_back(pair<float, int> (sqrt(pow(points[i][0], 2) + pow(points[i][1], 2)), i)); 
+
+	sort(vec1.begin(), vec1.end()); 
+	for(i=0; i<K;i++)
+		res.push_back(points.at(vec1[i].second)); 
+
+	return res;   
+}
+```
 
