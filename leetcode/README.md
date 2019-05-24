@@ -184,4 +184,21 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
 ## 984. String Without AAA or BBB
 
 问：给出A和B字母的个数，构造出S来，S满足长度为A+B个数，且不能出现AAA或BBB  
-答：
+答：假定A比B长，如果不是则交换A和B，然后while循环，循环条件是A或B不为0，具体如下  
+```c++
+string strWithout3a3b(int A, int B) {
+    char a = 'a';
+    char b = 'b';
+    if (B > A) {
+        swap(A, B);
+        swap(a, b);
+    }
+    string ans;
+    while (A || B) {
+        if (A > 0) { ans += a; --A; }
+        if (A > B) { ans += a; --A; }
+        if (B > 0) { ans += b; --B; }
+    }
+    return ans;
+} 
+```
