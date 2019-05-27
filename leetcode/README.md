@@ -94,6 +94,26 @@ int removeElement2(vector<int>& nums, int val) {
 问：螺旋遍历一个矩阵  
 答：首先确定四条边的位置，up就是0，down就是m-1，左边left是0，右边right是n-1；然后进入while遍历，先遍历上边，将所有元素加入ans，然后上边下移移位，如果此事上边大于下边，说明已经遍历完成，直接break。同理，对其他也是同样的操作。
 
+## 67. Add Binary
+
+问：两个二进制的字符串相加，返回它们的和（二进制字符串）  
+答：对两个的索引遍历，不存在了值就取0；对每次的操作结果移位取进位，并&1取结果加到ans上（因为相加结果最多两位）；最后再次判断进位标志，倒序返回结果。
+```c++
+string addBinary(string a, string b) {
+    int carry = 0;
+    int i = a.length() - 1;
+    int j = b.length() - 1;
+    string ans;
+    while (i >= 0 || j >= 0) {
+    	int s = (i >= 0 ? a[i--] - '0' : 0) + (j >= 0 ? b[j--] - '0' : 0) + carry;
+        carry = s >> 1;
+        ans += '0' + (s & 1);
+    }
+    if (carry) ans += '1';
+    return { rbegin(ans), rend(ans) };
+}
+```
+
 ## 134. Gas Station
 
 问：顺时针走完加油站，每个加油站可以补给一定的油量和知道到达下一站所需要的油量，从哪一个加油站开始出发可以完成任务？  
