@@ -114,6 +114,13 @@ string addBinary(string a, string b) {
 }
 ```
 
+## 106. Construct Binary Tree from Inorder and Postorder Traversal
+
+问：给出中序遍历和后序遍历，构造出二叉树  
+答：由于后序遍历的顺序最后一个肯定是根，我们可以在中序中找到根节点的位置，将中序拆分开两个部分，分别对其调用原函数。  
+对于postorder的左右index需要特别注意一下，需要计算中序划分后左边的节点个数。  
+返回条件是判断左右index是否合理，不合理返回NULL。
+
 ## 134. Gas Station
 
 问：顺时针走完加油站，每个加油站可以补给一定的油量和知道到达下一站所需要的油量，从哪一个加油站开始出发可以完成任务？  
@@ -130,6 +137,39 @@ string addBinary(string a, string b) {
 
 问：返回一个数组出现次数最多的前k个数  
 答：首先使用unorder_map来统计出现的次数，然后使用priority_queue，由于其默认是最大堆，可以对出现次数进行排列。
+
+## 371. Sum of Two Integers
+
+问：不使用+-符号计算两数的和  
+答：我们使用加法进行运算的时候，每位相加之后可能会有进位carry产生，然后在**下一位计算的时候需要加上进位一起运算**，我们可以拆开两部分进行计算：例如759+674  
+1. 不考虑进位，得到323
+2. 只考虑进位，得到1110
+3. 将上面两个数相加，得到323+1110=1433，就是最终的结果  
+
+同理，在二进制下，不考虑进位的话，0+0=0,0+1=1,1+0=1,1+1=0,这就是异或运算，只考虑进位的话0+0=0,0+1=0,1+0=0,1+1=1,这是与运算，第三步将两者相加，递归调用此算法，终止条件是进位为0，返回结果。  
+注意：leetcode编译器不能对负数移位，所以最高位符号必须为0，才能左移，所以我们与0x7fffffff，强制将最高位清0，再进行左移。
+
+
+## 378. Kth Smallest Element in a Sorted Matrix
+
+**TODO**
+[解析](https://www.cnblogs.com/grandyang/p/5727892.html)
+```c++
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        const int m = matrix.size();
+        vector<int> tmp;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < m; ++j) {
+                tmp.push_back(matrix[i][j]);
+            }
+        }
+        sort(tmp.begin(), tmp.end());
+        return tmp[k - 1];
+    }
+};
+```
 
 ## 886. Possible Bipartition
 
