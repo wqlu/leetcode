@@ -171,6 +171,49 @@ public:
 };
 ```
 
+### 764. Largest Plus Sign
+
+问：二维矩阵中有1有0，找到以1为中心连成的最大十字符号？  
+答：1.暴力破解法，尝试每一个位置能成的最大十字符号，记录下最大的。（事件复杂度为立方级别）  
+2.四个矩阵分别记录四个方向连续的1的个数，然后同一位置取四个中的最小值，最后得到所有位置结果中的最大值。经优化后，可以使用一个矩阵，记录比较过的值就可以了。具体代码如下：  
+
+```c++
+int orderOfLargestPlusSign_1(int N, vector<vector<int>> &mines) {
+        int res = 0, cnt = 0;
+        vector<vector<int>> dp(N, vector<int>(N, 0));
+        unordered_set<int> s; // 二维变成一维
+        for (auto mine : mines) s.insert(mine[0] * N + mine[1]);
+        for (int j = 0; j < N; ++j) {
+            cnt = 0;
+            for (int i = 0; i < N; ++i) { // up
+                cnt = s.count(i * N + j) ? 0 : cnt + 1;
+                dp[i][j] = cnt;
+            }
+            cnt = 0;
+            for (int i = N - 1; i >= 0; --i) { // down
+                cnt = s.count(i * N + j) ? 0 : cnt + 1;
+                dp[i][j] = min(dp[i][j], cnt);
+            }
+        }
+        for (int i = 0; i < N; ++i) {
+            cnt = 0;
+            for (int j = 0; j < N; ++j) { // left
+                cnt = s.count(i * N + j) ? 0 : cnt + 1;
+                dp[i][j] = min(dp[i][j], cnt);
+            }
+            cnt = 0;
+            for (int j = N - 1; j >= 0; --j) { // right
+                cnt = s.count(i * N + j) ? 0 : cnt + 1;
+                dp[i][j] = min(dp[i][j], cnt);
+                res = max(dp[i][j], res);
+            }
+        }
+        return res;
+    }
+```
+
+
+
 ## 886. Possible Bipartition
 
 问：互相不喜欢的人不能分在一个部分里，抽象出无向图是否可分为两部分？  
