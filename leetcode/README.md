@@ -305,3 +305,10 @@ string strWithout3a3b(int A, int B) {
     return ans;
 } 
 ```
+
+## 1041. Robot Bounded In Circle
+
+问：一个机器人从[0,0]开始，面向上，有三种指令，分别是向前、向左转90，向右转90，是否会形成一个循环的路径？  
+答：1.如果做了以后是原点，肯定是有环的  
+2.如果没有原点，只需要半段最后的方向不是朝北的，就肯定会回到原点。具体参见[https://leetcode.com/problems/robot-bounded-in-circle/discuss/290856/JavaC++Python-Let-Chopper-Help-Explain](https://leetcode.com/problems/robot-bounded-in-circle/discuss/290856/JavaC++Python-Let-Chopper-Help-Explain)  
+3.简化一下就是，考虑最后的位置为[x,y]，如果朝北就会是[2x,2y],[3x,3y]....，如果不是相当于把坐标轴转换一下，经过4次，就会形成一个正方形回到原点。
