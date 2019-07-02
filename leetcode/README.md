@@ -350,3 +350,8 @@ string strWithout3a3b(int A, int B) {
 答：1.如果做了以后是原点，肯定是有环的  
 2.如果没有原点，只需要半段最后的方向不是朝北的，就肯定会回到原点。具体参见[https://leetcode.com/problems/robot-bounded-in-circle/discuss/290856/JavaC++Python-Let-Chopper-Help-Explain](https://leetcode.com/problems/robot-bounded-in-circle/discuss/290856/JavaC++Python-Let-Chopper-Help-Explain)  
 3.简化一下就是，考虑最后的位置为[x,y]，如果朝北就会是[2x,2y],[3x,3y]....，如果不是相当于把坐标轴转换一下，经过 4 次，就会形成一个正方形回到原点。
+
+## 1104. Path In Zigzag Labelled Binary Tree
+
+问：在一棵二叉树上，按“之”字型对树的节点依次标记，给出一个节点的标记，返回从根节点到该节点的路径  
+答：
