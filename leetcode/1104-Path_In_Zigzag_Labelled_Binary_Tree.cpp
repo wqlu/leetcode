@@ -23,3 +23,10 @@ public:
         return ans;
     }
 };
+
+int main() {
+
+    Solution s;
+    vector<int> ans = s.pathInZigZagTree(14);
+    return 0;
+}
