@@ -137,6 +137,18 @@ string addBinary(string a, string b) {
 答：粗暴的方法：尝试从每一个加油站开始遍历，如果符合返回加油站编号，不然返回-1
 另一种方法：1. 将 gas_sum 和 cost_sum 比较，如果小于 cost_sum 则肯定无法完成，大于则能完成 2.如能完成，遍历一次找到可以成为起点的 station
 
+## 221. Maximal Square
+
+问：给定一个0和1的字符矩阵，只包含1的字符矩阵的最大面积  
+答：动态规划，利用dp[r][c]和周围三个值的关系
+
+```c++
+memset(square, 0, sizeof(int)*(rowSize+1)*(colSize+1));
+// if (matrxit[r-1][c-1] == '1')
+square[r][c] = min(min(square[r-1][c], square[r][c-1]), square[r-1][c-1]) + 1;
+
+```
+
 ## 240. Search a 2D Matrix II
 
 问：在二维矩阵查找某一个值是否存在？  
@@ -181,7 +193,12 @@ public:
 };
 ```
 
-### 764. Largest Plus Sign
+## 404. Sum of Left Leaves
+
+问：所有左叶子节点的和  
+答：递归实现，本来使用了 Private：int ans;成员变量记录答案，但是答案会翻倍，不应该使用全局变量的
+
+## 764. Largest Plus Sign
 
 问：二维矩阵中有 1 有 0，找到以 1 为中心连成的最大十字符号？  
 答：1.暴力破解法，尝试每一个位置能成的最大十字符号，记录下最大的。（事件复杂度为立方级别）  
