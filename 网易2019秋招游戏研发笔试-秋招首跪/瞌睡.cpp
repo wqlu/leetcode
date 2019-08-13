@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    int n, k, sum = 0;
+    int n, k, sum = 0, sum2 = 0;
     cin >> n >> k;
     int a[n], t[n];
     for (int i = 0; i < n; i++) {
@@ -10,19 +10,29 @@ int main() {
     }
     for (int i = 0; i < n; i++) {
         cin >> t[i];
-        if (a[i]  == 1 ) {
+        if (t[i]  == 1 ) {
             sum += a[i];
         }
     }
-    int ans = sum;
-    for (int i = 0; i <= n - k; i++) {
-        for (int k= 0; k < 3; k++ ) {
-            if (t[i+k] == 0) {
-                ans += a[i+k];
-            }
-        }
-        ans = ans > sum ? ans : sum;
+
+    int cur = 0;
+    k = min(k, n);
+
+    for (int i = 0; i < k; ++i) {
+        if (t[i] == 0)
+            cur += a[i];
     }
-    cout << ans << endl;
+    sum2 = cur;
+
+    for (int i = k; i < n; i++) {
+        if (t[i-k] == 0) 
+            cur -= a[i-k];
+        if (t[i] == 0)
+            cur += a[i];
+        if (cur > sum2)
+            sum2 = cur;
+    }
+
+    cout << sum + sum2 << endl;
     return 0;
 }
