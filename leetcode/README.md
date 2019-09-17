@@ -154,6 +154,11 @@ square[r][c] = min(min(square[r-1][c], square[r][c-1]), square[r-1][c-1]) + 1;
 问：在二维矩阵查找某一个值是否存在？  
 答：由于横竖都是有序的，从右上角开始比对，可以每次排除一行或一列
 
+###  300. Longest Increasing Subsequence
+
+问：最长递增子序列的长度  
+答：使用动态规划，dp数组的每一位代表以当前位置为最后一个数时构成的最长子序列长度
+
 ## 347. Top K Frequent Elements
 
 问：返回一个数组出现次数最多的前 k 个数  
